@@ -2,14 +2,33 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime, date
 
-
+#user model
 class User(SQLModel, table=True):
-    __tablename__ = "user"
+    __tablename__ = "taskflow_user"
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(unique=True, index=True)
     email: str = Field(unique=True, index=True)
     hashed_password: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class UserCreate(SQLModel):
+    username: str
+    email: str
+    password: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+# plain text — only used during registration
+
+class UserLogin(SQLModel):
+    username:str
+    password:str
+
+class UserPublic(SQLModel):
+    id: int
+    username: str
+    email: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 
 class Project(SQLModel, table=True):
     __tablename__ = "project"

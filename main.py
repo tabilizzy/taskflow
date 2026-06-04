@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import create_db_and_tables
-import models
-import auth
-#from routers.auth import auth_router
+from routers.auth import auth_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -11,7 +9,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=lifespan, title="TensFlow")
+app = FastAPI(lifespan=lifespan, title="TaskFlow")
 
 
-#app.include_router(auth_router)
+app.include_router(auth_router)
