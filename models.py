@@ -66,18 +66,36 @@ class Task(SQLModel, table=True):
     priority: str = "medium" # 'low' | 'medium' | 'high'
     due_date: Optional[date] = None
     project_id: int = Field(foreign_key="project.id")
-    assignee_id: Optional[int] = Field(default=None, foreign_key="user.id")
-    created_by: int = Field(foreign_key="user.id")
+    assignee_id: Optional[int] = Field(default=None, foreign_key="taskflow_user.id")
+    created_by: int = Field(foreign_key="taskflow_user.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class TaskCreate(SQLModel):
+    title: str
+    description: Optional[str] = None
+    status: str = "todo" # 'todo' | 'in_progress' | 'done'
+    priority: str = "medium" # 'low' | 'medium' | 'high'
+    due_date: Optional[date] = None
+    assignee_id: Optional[int] = Field(default=None, foreign_key="taskflow_user.id")
+    created_by: int = Field(foreign_key="taskflow_user.id")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 
 class Comment(SQLModel, table=True):
     __tablename__ = "comment"
     id: Optional[int] = Field(default=None, primary_key=True)
     body: str
     task_id: int = Field(foreign_key="task.id")
-    author_id: int = Field(foreign_key="user.id")
+    author_id: int = Field(foreign_key="taskflow_user.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class CreateComment(SQLModel):
+    body: str
+    task_id: int = Field(foreign_key="task.id")
+    author_id: int = Field(foreign_key="taskflow_user.id")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+    
 # Token creation
 class Token(SQLModel):
     access_token: str
