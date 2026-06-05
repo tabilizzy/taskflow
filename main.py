@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import create_db_and_tables
 from routers.auth import auth_router
+from routers.projects import pro_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,3 +14,5 @@ app = FastAPI(lifespan=lifespan, title="TaskFlow")
 
 
 app.include_router(auth_router)
+app.include_router(pro_router)
+

@@ -15,9 +15,7 @@ class UserCreate(SQLModel):
     username: str
     email: str
     password: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
-# plain text — only used during registration
+    #created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserLogin(SQLModel):
     username:str
@@ -29,19 +27,33 @@ class UserPublic(SQLModel):
     email: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-
+# product model
 class Project(SQLModel, table=True):
     __tablename__ = "project"
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     description: Optional[str] = None
-    owner_id: int = Field(foreign_key="user.id")
+    owner_id: int = Field(foreign_key="taskflow_user.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ProjectCreate(SQLModel):
+    name: str
+    description: Optional[str] = None
+    owner_id: int = Field(foreign_key="taskflow_user.id")
+
+
+class ProjectPublic(SQLModel):
+    id: int
+    name:str
+    description: Optional[str] = None
+    owner_id: int = Field(foreign_key="taskflow_user")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 
 class Membership(SQLModel, table=True):
     __tablename__ = "membership"
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id")
+    user_id: int = Field(foreign_key="taskflow_user.id")
     project_id: int = Field(foreign_key="project.id")
     role: str = "member" # 'owner' | 'member'
 

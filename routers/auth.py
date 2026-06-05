@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from models import UserCreate, User, UserPublic, Token, UserLogin
 from sqlmodel import Session, select
 from database import get_session
-from auth import hash_password, verify_password, create_access_token
+from auth import hash_password, verify_password, create_access_token, get_current_user
 
 # authentication
 auth_router = APIRouter(prefix="/auth", tags=["authentication"])
@@ -40,3 +40,20 @@ def login(
 # Create and return a JWT token
     access_token = create_access_token(data={"sub": user.username})
     return Token(access_token=access_token)
+
+# Protected route — only authenticated users can access
+@auth_router.get("/me", response_model=list[User])
+def list_users(session: Session = Depends(get_session),
+            current_user: User = Depends(get_current_user),):
+            # <-- protects the route
+
+# Only return todos belonging to the current user
+# Only return todos belonging to the current user
+    return session.exec(
+    #select(User)).all()
+    select(User).where(User.id == current_user.id)).all()
+
+# Unprotected route — anyone can access
+@auth_router.get("/health")
+def health_check():
+    return {"status": "ok"}
