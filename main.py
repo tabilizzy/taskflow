@@ -15,6 +15,13 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan, title="TaskFlow")
 
 
+# Unprotected route — anyone can access
+@app.get("/")
+def health_check():
+    return {
+        "status": "ok"
+        "message: Welcome to the taskflow project"}
+
 app.include_router(auth_router)
 app.include_router(pro_router)
 app.include_router(proj_router)

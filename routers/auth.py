@@ -53,7 +53,3 @@ def list_users(session: Session = Depends(get_session),
     #select(User)).all()
     select(User).where(User.id == current_user.id)).all()
 
-# Unprotected route — anyone can access
-@auth_router.get("/health")
-def health_check():
-    return {"status": "ok"}
