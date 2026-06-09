@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=lifespan, title="TaskFlow")
+app = FastAPI(lifespan=lifespan, title="TaskFlow: Team Task Management API")
 
 
 # Unprotected route — anyone can access
