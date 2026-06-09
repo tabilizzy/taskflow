@@ -19,8 +19,9 @@ app = FastAPI(lifespan=lifespan, title="TaskFlow")
 @app.get("/")
 def health_check():
     return {
-        "status": "ok"
-        "message: Welcome to the taskflow project"}
+        "status": "ok",
+        "message": "Welcome to the taskflow project"
+        }
 
 app.include_router(auth_router)
 app.include_router(pro_router)
