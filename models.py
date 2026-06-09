@@ -27,7 +27,7 @@ class UserPublic(SQLModel):
     email: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-# product model
+# project model
 class Project(SQLModel, table=True):
     __tablename__ = "project"
     id: Optional[int] = Field(default=None, primary_key=True)

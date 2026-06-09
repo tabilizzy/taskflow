@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
-from models import User, Project, ProjectCreate, ProjectPublic
+from model.project import Project, ProjectCreate, ProjectPublic
 from sqlmodel import Session, select
 from database import get_session
-from auth import  get_current_user
+from auth import  get_current_user, User
 
 
 # Protected route — only authenticated users can access

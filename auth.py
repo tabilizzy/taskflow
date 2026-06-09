@@ -9,7 +9,7 @@ from sqlmodel import Session, select
 import hashlib
 import bcrypt
 from database import get_session
-from models import User, TokenData
+from model.user import User, TokenData
 
 
 load_dotenv()

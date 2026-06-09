@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
-from models import Comment, CreateComment
+from model.comment import Comment, CreateComment
 from auth import get_current_user, get_session, User
 from sqlmodel import Session, select
 
