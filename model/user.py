@@ -1,4 +1,5 @@
-from sqlmodel import SQLModel, Field, EmailStr
+from sqlmodel import SQLModel, Field
+from pydantic import EmailStr
 from typing import Optional
 from datetime import datetime, date
 
